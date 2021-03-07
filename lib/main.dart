@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mycalc2/widgets/calcbutton.dart';
+
 import 'package:math_expressions/math_expressions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,32 +14,32 @@ class MyCalc extends StatefulWidget {
    }
 
 class CalcState extends State<MyCalc> {
-  String _history = '';
+
   String _expression = '';
 
   void numClick(String text) {
     setState(() => _expression += text);
   }
 
-  void allClear(String text) {
+  void _allClear() {
     setState(() {
-      _history = '';
+
       _expression = '';
     });
   }
 
-  void clear(String text) {
+  void clear() {
     setState(() {
-      _expression = '';
+      _expression =_expression.substring(0,_expression.length - 1);
     });
   }
 
-  void evaluate(String text) {
+  void evaluate() {
     Parser p = Parser();
     Expression exp = p.parse(_expression);
     ContextModel cm = ContextModel();
     setState(() {
-      _history = _expression;
+
       _expression = exp.evaluate(EvaluationType.REAL, cm).toString();
     });
   }
@@ -55,22 +55,7 @@ class CalcState extends State<MyCalc> {
         child:Column(
           mainAxisAlignment:MainAxisAlignment.end ,
           children: <Widget>[
-        Container(
-        child: Padding(
-            padding: const EdgeInsets.only(right: 12),
-        child: Text(
-          _history,
-          style: GoogleFonts.rubik(
-            textStyle: TextStyle(
-              fontSize: 24,
-              color: Color(0xFF545F61),
-            ),
-          ),
-        ),
-      ),
-      alignment: Alignment(1.0, 1.0),
-    ),
-      Container(
+         Container(
       child: Padding(
       padding: const EdgeInsets.all(12),
     child: Text(
@@ -87,127 +72,109 @@ class CalcState extends State<MyCalc> {
     ),
             SizedBox(height: 40),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                FlatButton(onPressed: () => {_allClear() },
+                  child:Text("AC"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
+                ), FlatButton(onPressed: () => {clear() },
+                  child:Text("<-"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
+                ),
+
+                  FlatButton(onPressed: () => {numClick('%') },
+                  child:Text("%"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
+                  ),
+
+                    FlatButton(onPressed: () => {numClick('/') },
+                    child:Text("/"),color: Colors.redAccent,
+                    padding: EdgeInsets.all(5.0),
+                    ),
+
+              ],
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                calcbutton(
-                  text: 'AC',
-                  fillColor: 0xFF40C4FF,
-                  textSize: 25,
-                  callback: allClear,
+                FlatButton(onPressed: () => {numClick('7') },
+                  child:Text("7"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
-                calcbutton(
-                  text: 'C',
-                  fillColor:  0xFF40C4FF,
-                  textSize: 35,
-                  callback: clear,
+                FlatButton(onPressed: () => {numClick('8') },
+                  child:Text("8"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
-                calcbutton(
-                  text: '%',
-                  fillColor: 0xFFFBE9E7,
-                  textColor: 0xFFFF1744,
-                  callback: numClick,
+                FlatButton(onPressed: () => {numClick('9') },
+                  child:Text("9"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
-                calcbutton(
-                  text: '/',
-                  fillColor: 0xFFFBE9E7,
-                  textColor: 0xFFFF1744,
-                  callback: numClick,
+                FlatButton(onPressed: () => {numClick('*') },
+                  child:Text("*"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                calcbutton(
-                  text: '7',
-                  callback: numClick,
+                FlatButton(onPressed: () => {numClick('4') },
+                  child:Text("4"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
-                calcbutton(
-                  text: '8',
-                  callback: numClick,
+                FlatButton(onPressed: () => {numClick('5') },
+                  child:Text("5"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
-                calcbutton(
-                  text: '9',
-                  callback: numClick,
+                FlatButton(onPressed: () => {numClick('6') },
+                  child:Text("6"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
-                calcbutton(
-                  text: '*',
-                  fillColor: 0xFFFBE9E7,
-                  textColor: 0xFFFF1744,
-                  textSize: 24,
-                  callback: numClick,
+                FlatButton(onPressed: () => {numClick('-') },
+                  child:Text("-"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                calcbutton(
-                  text: '4',
-                  callback: numClick,
+                FlatButton(onPressed: () => {numClick('1') },
+                  child:Text("1"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
-                calcbutton(
-                  text: '5',
-                  callback: numClick,
+                FlatButton(onPressed: () => {numClick('2') },
+                  child:Text("2"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
-                calcbutton(
-                  text: '6',
-                  callback: numClick,
+                FlatButton(onPressed: () => {numClick('3') },
+                  child:Text("3"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
-                calcbutton(
-                  text: '-',
-                  fillColor: 0xFFFBE9E7,
-                  textColor: 0xFFFF1744,
-                  textSize: 38,
-                  callback: numClick,
+                FlatButton(onPressed: () => {numClick('+') },
+                  child:Text("+"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                calcbutton(
-                  text: '1',
-                  callback: numClick,
+                FlatButton(onPressed: () => {numClick('.') },
+                  child:Text("."),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
-                calcbutton(
-                  text: '2',
-                  callback: numClick,
+                FlatButton(onPressed: () => {numClick('0') },
+                  child:Text("0"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
-                calcbutton(
-                  text: '3',
-                  callback: numClick,
+                FlatButton(onPressed: () => {numClick('00') },
+                  child:Text("00"),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
-                calcbutton(
-                  text: '+',
-                  fillColor: 0xFFFBE9E7,
-                  textColor: 0xFFFF1744,
-                  textSize: 30,
-                  callback: numClick,
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                calcbutton(
-                  text: '.',
-                  callback: numClick,
-                ),
-                calcbutton(
-                  text: '0',
-                  callback: numClick,
-                ),
-                calcbutton(
-                  text: '00',
-                  callback: numClick,
-                  textSize: 26,
-                ),
-                calcbutton(
-                  text: '=',
-                  fillColor: 0xFF40C4FF,
-                  textSize: 25,
-                  callback: evaluate,
+                FlatButton(onPressed: () => {evaluate() },
+                  child:Text("="),color: Colors.redAccent,
+                  padding: EdgeInsets.all(5.0),
                 ),
               ],
             )
